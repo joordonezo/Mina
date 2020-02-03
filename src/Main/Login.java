@@ -145,6 +145,9 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Acceso incorrecto");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Acceso incorrecto: "+e.getMessage());
+            //this.setDefaultCloseOperation(WindowsC);
+            System.exit(0);
         }
     }
 

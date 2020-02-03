@@ -98,6 +98,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         buscarBtn = new javax.swing.JButton();
         autoCheck = new javax.swing.JCheckBox();
+        cerrarSesionBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         informesMenu = new javax.swing.JMenu();
         produccionMenu = new javax.swing.JMenuItem();
@@ -220,7 +221,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(verInfoIncapacitadoBtn)
                     .addComponent(verInfoAccidentadoBtn))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         panelAgregar.addTab("Informes", jPanel1);
@@ -243,6 +244,13 @@ public class Inicio extends javax.swing.JFrame {
 
         autoCheck.setSelected(true);
         autoCheck.setText("Auto busqueda");
+
+        cerrarSesionBtn.setText("Cerrar Sesión");
+        cerrarSesionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarSesionBtnActionPerformed(evt);
+            }
+        });
 
         informesMenu.setText("Informes");
 
@@ -323,7 +331,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rolTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(99, 99, 99))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cerrarSesionBtn)
+                .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelAgregar)
                 .addContainerGap())
@@ -332,18 +342,21 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buscarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(autoCheck))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(rolTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buscarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(autoCheck))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rolTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscarBtn)))
+                    .addComponent(cerrarSesionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(panelAgregar))
         );
 
@@ -473,6 +486,11 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         informeIncapacidadPersona();
     }//GEN-LAST:event_verInfoIncapacitadoBtnActionPerformed
+
+    private void cerrarSesionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionBtnActionPerformed
+        // TODO add your handling code here:
+        cerrarSesion();
+    }//GEN-LAST:event_cerrarSesionBtnActionPerformed
 
     private static int filPorMina() {
         ArrayList<String> minas = (ArrayList<String>) Mina.consultarMinas();
@@ -681,6 +699,23 @@ public class Inicio extends javax.swing.JFrame {
 
     }
 
+    private void cerrarSesion() {
+        int opcion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Estás seguro de que quieres cerrar Sesión?",
+                "Confirmación de cierre de sesión",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            this.setVisible(false);
+            //this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            Login log = new Login();
+            log.setVisible(true);
+        }
+
+        //System.exit(0);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -725,6 +760,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JCheckBox autoCheck;
     private javax.swing.JButton buscarBtn;
     private javax.swing.JTextField buscarTxt;
+    private javax.swing.JButton cerrarSesionBtn;
     private javax.swing.JButton editarBtn;
     private javax.swing.JCheckBox incapacitadoCheck;
     private javax.swing.JMenuItem incapacitadosMenu;
