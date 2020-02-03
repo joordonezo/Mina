@@ -66,6 +66,7 @@ public class Inicio extends javax.swing.JFrame {
             informesMenu.setEnabled(false);
             buscarBtn.setEnabled(false);
             buscarTxt.setEnabled(false);
+            produccionPersonal(CEDULA);
         }
 
     }
@@ -528,7 +529,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private int cedulaSelect() {
         String cedula = (String) tablaProduccion.getValueAt(tablaProduccion.getSelectedRow(), 0);
-        
+
         return Integer.parseInt(cedula);
     }
 
@@ -665,6 +666,19 @@ public class Inicio extends javax.swing.JFrame {
         tabAcc.setModel(acci);
 
         JOptionPane.showMessageDialog(null, tabAcc);
+    }
+
+    private void produccionPersonal(int cedula) {
+        ArrayList rows = Produccion.consultarPorCedula(cedula);
+
+        String[] cols = new String[]{"FECHA", "CANTIDAD", "CEDULA", "MINA"};
+
+        modelo.setColumnIdentifiers(cols);
+        tablaProduccion.setModel(modelo);
+        for (int i = 0; i < rows.size(); i++) {
+            modelo.addRow((Object[]) rows.get(i));
+        }
+
     }
 
     /**

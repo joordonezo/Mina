@@ -127,6 +127,41 @@ public class Produccion {
         //insert into tabla Values(valores)
     }
 
+    public static ArrayList consultarPorCedula(int cedula) {
+        ArrayList columnas = new ArrayList();
+        datos = obj.conectar();
+        String consulta = "SELECT * FROM produccion WHERE produccion.cedula = " + cedula + " ORDER BY produccion.fecha ASC";
+
+        ResultSet rs;
+        Statement st;
+        try {
+            st = (Statement) obj.java.createStatement();
+            rs = st.executeQuery(consulta);
+
+            while (rs.next()) {
+                ArrayList mina = Mina.consultar(Integer.parseInt(rs.getString("idMina")));
+                ArrayList persona = Persona.consultar(Integer.parseInt(rs.getString("cedula")));
+
+                columnas.add(new Object[]{rs.getString("fecha"), rs.getString("cantidad"), rs.getString("cedula") + "-" + persona.get(0).toString() + " " + persona.get(1).toString(), rs.getString("idMina") + "-" + mina.get(0).toString()});
+//                columnas.add(rs.getString("fecha"));
+//                columnas.add(rs.getString("cantidad"));
+//                columnas.add(rs.getString("cedula"));
+//                columnas.add(rs.getString("idMina"));
+
+//                JOptionPane.showMessageDialog(null, "Registro encontrado", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+            }
+//            else {
+//                JOptionPane.showMessageDialog(null, "Registro no encontrado", "Incorrecto", JOptionPane.ERROR_MESSAGE);
+//            }
+            datos.close();
+
+        } catch (HeadlessException | SQLException exx) {
+            JOptionPane.showMessageDialog(null, "¡Error, No se pudo encontar!", "falló la consulta", JOptionPane.ERROR_MESSAGE);
+        }
+        return columnas;
+        //insert into tabla Values(valores)
+    }
+
     public void modificar() {
         datos = obj.conectar();
 
